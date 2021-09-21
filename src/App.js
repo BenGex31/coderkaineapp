@@ -1,11 +1,11 @@
-import logo from './logo.svg';
+import logo from './assets/logo/Ellipse 1.png';
 import './App.css';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+        <img style={{backgroundColor: "white"}} src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
