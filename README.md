@@ -1,3 +1,42 @@
+# TODO
+
+L'objectif est de réaliser les 3 taches suivantes sous forme d'une application React :
+
+1. Se connecter : formulaire de connexion avec 2 champs saisies login + password et 1 bouton pour se connecter.
+2. Afficher la liste des utilisateurs : sous forme de tableau.
+3. Modifier un utilisateur : formulaire avec 2 champs de saisies nom + prénom et 1 bouton pour mettre à jour un utilisateur.
+
+Envoyer le zip (sans les node_modules) contenant le code source que vous avez réalisé à l'adresse contact@coderkaine.com pour valider l'exercice.
+
+# Contrat d'api
+
+- Utiliser l'application Postman et importer le fichier `Coderkaine CDI Front-end Dev.postman_collection.json` pour avoir le contrat d'api contentn 3 exemples vous permettant de réaliser l'exercice. Voir la vidéo `Aide import Postman.mov` pour savoir comment importer dans Postman.
+
+# 3 requêtes du contrat d'api
+
+Niveau sécurité applicatif, nous utilisons `OAuth 2.0 Bearer Token` (voir doc : https://www.oauth.com/oauth2-servers/making-authenticated-requests/).
+
+## 1. Se connecter
+
+Login : contact+usertest@coderkaine.com
+Password : #K5nCK/8
+
+- endpoint : https://api-pp.hifivework.com/apiv1/auth/login
+
+Dans la réponse de la requete login, vous récupérerez un grand nombre de champs dont :
+
+- `id` : l'id de l'utilisateur courant
+- `authToken` : le jeton d'authentification Bearer de l'utilisateur
+- `company.id` : l'id de l'entreprise de l'utilisateur
+
+## 2. Lister les employés
+
+- endpoint : https://api-pp.hifivework.com/apiv1/company/[companyId]/employees
+
+## 3. Mettre à jour un employé
+
+- endpoint : https://api-pp.hifivework.com/apiv1/auth/[userId]
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
