@@ -1,6 +1,6 @@
 import React from 'react';
 import CloseIcon from '@mui/icons-material/Close';
-import colors from '../../../utils/style/colors';
+import colors from '../../utils/style/colors';
 
 const IconClose = () => {
   return (
