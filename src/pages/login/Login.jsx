@@ -11,9 +11,21 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordVisibility, setPasswordVisibility] = useState(false);
+  const [isValidEmail, setIsvalidEmail] = useState(false);
+  const [message, setMessage] = useState('');
   //const [loginError, setLoginError] = useState('');
 
+  const emailRegex = /\S+@\S+\.\S+/;
+
   const handleChangeEmail = (event) => {
+    const emailValue = event.target.value;
+    if (emailRegex.test(emailValue)) {
+      setIsvalidEmail(true);
+      setMessage('Votre adresse mail est correct!');
+    } else {
+      setIsvalidEmail(false);
+      setMessage('Entrez une adresse mail valide!');
+    }
     setEmail(event.target.value);
     console.log(email);
   };
@@ -57,6 +69,11 @@ const Login = () => {
             label="E-mail"
             variant="outlined"
           />
+          {isValidEmail ? (
+            <span style={{ color: 'green', fontSize: 12 }}>{message}</span>
+          ) : (
+            <span style={{ color: 'red', fontSize: 12 }}>{message}</span>
+          )}
           <TextFieldPassword
             id="password"
             type={passwordVisibility ? 'text' : 'password'}
