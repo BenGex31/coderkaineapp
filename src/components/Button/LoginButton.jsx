@@ -1,21 +1,12 @@
 import React from 'react';
 import Button from '@mui/material/Button';
-import colors from '../../utils/style/colors';
 
-const LoginButton = ({ variant, text, onClick }) => {
+const LoginButton = ({ variant, text, onClick, disabled, style }) => {
   return (
     <Button
+      disabled={disabled}
       variant={variant}
-      style={{
-        backgroundColor: colors.darkBlue,
-        color: 'white',
-        width: 180,
-        height: 38,
-        fontSize: 14,
-        fontWeight: 400,
-        borderRadius: 5,
-        fontFamily: 'Montserrat, sans-serif',
-      }}
+      style={style}
       onClick={onClick}
     >
       {text}
