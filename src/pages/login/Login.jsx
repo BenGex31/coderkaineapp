@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import logoCoderKaine from '../../assets/logo/logo-coderkaine.svg';
 import LoginButton from '../../components/Button/LoginButton';
 import illustrationCoderKaine from '../../assets/loginImg/illustration-coderkaine.svg';
@@ -6,8 +6,11 @@ import TextFieldEmail from '../../components/TextField/TextFieldEmail';
 import TextFieldPassword from '../../components/TextField/TextFieldPassword';
 import './Login.css';
 import colors from '../../utils/style/colors';
+import Auth from '../../context/Auth';
+import { login } from '../../utils/API/AuthApi';
 
-const Login = () => {
+const Login = ({ history }) => {
+  const { isAuthenticated } = useContext(Auth);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordVisibility, setPasswordVisibility] = useState(false);
@@ -54,6 +57,21 @@ const Login = () => {
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
+
+  const handleLogin = async () => {
+    try {
+      const response = await login(email, password);
+      console.log(response);
+    } catch ({ response }) {
+      console.log(response);
+    }
+  };
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      history.replace('/home');
+    }
+  }, [history, isAuthenticated]);
 
   return (
     <div className="loginMainContainer">
@@ -112,6 +130,7 @@ const Login = () => {
         </div>
         <div className="loginButton">
           <LoginButton
+            onClick={handleLogin}
             disabled={isValidEmail && isValidPassword ? false : true}
             variant="contained"
             text="Se connecter"
