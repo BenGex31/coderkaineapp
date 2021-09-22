@@ -13,6 +13,8 @@ const Login = () => {
   const [passwordVisibility, setPasswordVisibility] = useState(false);
   const [isValidEmail, setIsvalidEmail] = useState(false);
   const [message, setMessage] = useState('');
+  const [isValidPassword, setIsValidPassword] = useState(false);
+  const [errorMessagePassword, setErrorMessagePassword] = useState('');
   //const [loginError, setLoginError] = useState('');
 
   const emailRegex = /\S+@\S+\.\S+/;
@@ -32,6 +34,17 @@ const Login = () => {
 
   const handleChangePassword = () => (event) => {
     setPassword(event.target.value);
+    if (event.target.value.length >= 8) {
+      setIsValidPassword(true);
+      setErrorMessagePassword(
+        'Votre mot de passe contient plus de 8 caractères'
+      );
+    } else {
+      setIsValidPassword(false);
+      setErrorMessagePassword(
+        'Votre mot de passe doit contenir 8 caractères minimum'
+      );
+    }
   };
 
   const handleClickShowPassword = () => {
@@ -64,6 +77,7 @@ const Login = () => {
         </div>
         <div className="loginForm">
           <TextFieldEmail
+            //error={isValidEmail ? false : true}
             onChange={handleChangeEmail}
             id="email"
             label="E-mail"
@@ -75,6 +89,7 @@ const Login = () => {
             <span style={{ color: 'red', fontSize: 12 }}>{message}</span>
           )}
           <TextFieldPassword
+            //error={isValidPassword ? false : true}
             id="password"
             type={passwordVisibility ? 'text' : 'password'}
             value={password}
@@ -83,9 +98,47 @@ const Login = () => {
             onMouseDown={handleMouseDownPassword}
             visibility
           />
+          {isValidPassword ? (
+            <span style={{ color: 'green', fontSize: 12 }}>
+              {' '}
+              {errorMessagePassword}
+            </span>
+          ) : (
+            <span style={{ color: 'red', fontSize: 12 }}>
+              {' '}
+              {errorMessagePassword}
+            </span>
+          )}
         </div>
         <div className="loginButton">
-          <LoginButton variant="contained" text="Se connecter" />
+          <LoginButton
+            disabled={isValidEmail && isValidPassword ? false : true}
+            variant="contained"
+            text="Se connecter"
+            style={
+              isValidEmail && isValidPassword
+                ? {
+                    backgroundColor: colors.darkBlue,
+                    color: 'white',
+                    width: 180,
+                    height: 38,
+                    fontSize: 14,
+                    fontWeight: 400,
+                    borderRadius: 5,
+                    fontFamily: 'Montserrat, sans-serif',
+                  }
+                : {
+                    backgroundColor: colors.lightBlue,
+                    color: 'white',
+                    width: 180,
+                    height: 38,
+                    fontSize: 14,
+                    fontWeight: 400,
+                    borderRadius: 5,
+                    fontFamily: 'Montserrat, sans-serif',
+                  }
+            }
+          />
         </div>
       </div>
       <div
