@@ -62,7 +62,6 @@ const Login = ({ history }) => {
     try {
       const response = await login(email, password);
       setIsAuthenticated(response);
-      console.log(response);
       history.replace('/home');
     } catch ({ response }) {
       console.log(response);
