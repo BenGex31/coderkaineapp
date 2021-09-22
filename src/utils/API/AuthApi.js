@@ -4,12 +4,12 @@ import { getItem, addItem, removeItem } from '../LocalStorage/LocalStorage';
 
 export function hasAuthenticated() {
   const token = getItem('coderkaineToken');
-  const isValid = token ? tokenIsValid(token) : false;
+  const result = token ? tokenIsValid(token) : false;
 
-  if (false === isValid) {
+  if (false === result) {
     removeItem('coderkaineToken');
   }
-  return isValid;
+  return result;
 }
 
 export function login(email, password) {
@@ -17,7 +17,7 @@ export function login(email, password) {
     .post('https://api-pp.hifivework.com/apiv1/auth/login', email, password)
     .then((response) => response.data)
     .then((token) => {
-      addItem('coderkaineToken');
+      addItem('coderkaineToken', token);
 
       return true;
     });
