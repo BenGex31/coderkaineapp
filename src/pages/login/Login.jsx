@@ -10,7 +10,7 @@ import Auth from '../../context/Auth';
 import { login } from '../../utils/API/AuthApi';
 
 const Login = ({ history }) => {
-  const { isAuthenticated } = useContext(Auth);
+  const { isAuthenticated, setIsAuthenticated } = useContext(Auth);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordVisibility, setPasswordVisibility] = useState(false);
@@ -61,7 +61,9 @@ const Login = ({ history }) => {
   const handleLogin = async () => {
     try {
       const response = await login(email, password);
+      setIsAuthenticated(response);
       console.log(response);
+      history.replace('/home');
     } catch ({ response }) {
       console.log(response);
     }
