@@ -7,10 +7,13 @@ import TextFieldPassword from '../../components/TextField/TextFieldPassword';
 import './Login.css';
 import colors from '../../utils/style/colors';
 import Auth from '../../context/Auth';
-import { login } from '../../utils/API/AuthApi';
+//import { LoginUser } from '../../utils/API/AuthApi';
+import axios from 'axios';
+import AuthUser from '../../context/AuthUser';
 
 const Login = ({ history }) => {
   const { isAuthenticated, setIsAuthenticated } = useContext(Auth);
+  const { setApiInfo } = useContext(AuthUser);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordVisibility, setPasswordVisibility] = useState(false);
@@ -60,11 +63,20 @@ const Login = ({ history }) => {
 
   const handleLogin = async () => {
     try {
-      const response = await login(email, password);
-      setIsAuthenticated(response);
+      //const response = await LoginUser(email, password);
+      //setIsAuthenticated(response);
+      const response = await axios.post(
+        'https://api-pp.hifivework.com/apiv1/auth/login',
+        {
+          login: email,
+          password: password,
+        }
+      );
+      setIsAuthenticated(true);
+      setApiInfo(response.data);
       history.replace('/home');
-    } catch ({ response }) {
-      console.log(response);
+    } catch (error) {
+      console.error(error);
     }
   };
 
