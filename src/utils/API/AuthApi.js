@@ -1,7 +1,7 @@
+//import { useContext } from 'react';
 import axios from 'axios';
 //import jwtDecode from 'jwt-decode';
 import { getItem, addItem, removeItem } from '../LocalStorage/LocalStorage';
-
 
 export function hasAuthenticated() {
   const token = getItem('coderkaineToken');
@@ -13,20 +13,22 @@ export function hasAuthenticated() {
   return result;
 }
 
-export function login(email, password) {
-  return axios
-    .post('https://api-pp.hifivework.com/apiv1/auth/login', {
-      login: email,
-      password: password,
-    })
-    .then((response) => response.data)
-    .then((response) => console.log(response))
-    .then((token) => {
-      addItem('coderkaineToken', token);
+export const LoginUser = (email, password) => {
+  return (
+    axios
+      .post('https://api-pp.hifivework.com/apiv1/auth/login', {
+        login: email,
+        password: password,
+      })
+      .then((response) => response.data)
+      .then((response) => console.log(response))
+      .then((token) => {
+        addItem('coderkaineToken', token);
 
-      return true;
-    });
-}
+        return true;
+      })
+  );
+};
 
 export function logout() {
   removeItem('coderkaineToken');
