@@ -5,6 +5,7 @@
   padding: 0px 22px 0px 22px;
   background-color: #ffffff;
   height: 57px;
+  margin-bottom: 35px;
 }
 
 .containerNavBarRight {
@@ -13,10 +14,15 @@
   width: 250px;
 }
 
+.containerNavBarRight span {
+  font-size: 14px;
+}
+
 .containerNavBarRight span:nth-child(1) {
-  font-weight: bold;
+  font-weight: 700;
 }
 
 .containerNavBarRight span:nth-child(2) {
   cursor: pointer;
+  font-weight: 400;
 }
