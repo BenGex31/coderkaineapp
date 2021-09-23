@@ -8,6 +8,7 @@ import Auth from '../../context/Auth';
 const NavBar = () => {
   const { setIsAuthenticated } = useContext(Auth);
   const { apiInfo } = useContext(AuthUser);
+  console.log(apiInfo);
   const handleLogOut = () => {
     logout();
     setIsAuthenticated(false);
@@ -24,7 +25,7 @@ const NavBar = () => {
         />
       </div>
       <div className="containerNavBarRight">
-        <span>Bonjour {apiInfo.firstname} !</span>
+        <span>Bonjour {apiInfo.firstname} ! </span>
         <span onClick={handleLogOut}>Se déconnecter</span>
       </div>
     </div>
