@@ -14,7 +14,7 @@ import { addItem } from '../../utils/LocalStorage/LocalStorage';
 
 const Login = ({ history }) => {
   const { isAuthenticated, setIsAuthenticated } = useContext(Auth);
-  const { apiInfo, setApiInfo } = useContext(AuthUser);
+  const { setApiInfo } = useContext(AuthUser);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordVisibility, setPasswordVisibility] = useState(false);
@@ -75,9 +75,7 @@ const Login = ({ history }) => {
       );
       setIsAuthenticated(true);
       setApiInfo(response.data);
-
-      //addItem('coderkaineToken', response.data.authToken);
-
+      addItem('coderkaineToken', response.data.authToken);
       history.replace('/home');
     } catch (error) {
       console.error(error);
