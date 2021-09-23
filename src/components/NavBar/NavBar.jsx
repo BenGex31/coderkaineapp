@@ -1,12 +1,13 @@
 import React, { useContext } from 'react';
-import Auth from '../../context/Auth';
 import { logout } from '../../utils/API/AuthApi';
 import logoCoderKaine from '../../assets/logo/logo-coderkaine.svg';
 import './NavBar.css';
+import AuthUser from '../../context/AuthUser';
+import Auth from '../../context/Auth';
 
 const NavBar = () => {
-  const { isAuthenticated, setIsAuthenticated } = useContext(Auth);
-
+  const { setIsAuthenticated } = useContext(Auth);
+  const { apiInfo } = useContext(AuthUser);
   const handleLogOut = () => {
     logout();
     setIsAuthenticated(false);
@@ -23,7 +24,7 @@ const NavBar = () => {
         />
       </div>
       <div className="containerNavBarRight">
-        <span>Bonjour User</span>
+        <span>Bonjour {apiInfo.firstname} !</span>
         <span onClick={handleLogOut}>Se déconnecter</span>
       </div>
     </div>
