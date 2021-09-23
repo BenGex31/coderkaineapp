@@ -10,10 +10,11 @@ import Auth from '../../context/Auth';
 //import { LoginUser } from '../../utils/API/AuthApi';
 import axios from 'axios';
 import AuthUser from '../../context/AuthUser';
+import { addItem } from '../../utils/LocalStorage/LocalStorage';
 
 const Login = ({ history }) => {
   const { isAuthenticated, setIsAuthenticated } = useContext(Auth);
-  const { setApiInfo } = useContext(AuthUser);
+  const { apiInfo, setApiInfo } = useContext(AuthUser);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordVisibility, setPasswordVisibility] = useState(false);
@@ -74,6 +75,9 @@ const Login = ({ history }) => {
       );
       setIsAuthenticated(true);
       setApiInfo(response.data);
+
+      //addItem('coderkaineToken', response.data.authToken);
+
       history.replace('/home');
     } catch (error) {
       console.error(error);
