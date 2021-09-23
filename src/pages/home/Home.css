@@ -2,6 +2,14 @@ body {
   background-color: #e3ecfe;
 }
 
-.containerMainHome {
-  font-family: 'Montserrat, sans-serif';
+.containerListEmployees {
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  border-radius: 5px;
+  margin-bottom: 1em;
+  padding-left: 70px;
+  padding-right: 70px;
+  padding-bottom: 50px;
 }
