@@ -20,7 +20,7 @@ const Home = () => {
       setDataLoading(true);
       try {
         const response = await axios.get(
-          `https://api-pp.hifivework.com/apiv1/company/${companyId}/employees`,
+          `https://api-pp.hifivework.com/apiv1/company/5feddd469ec49b001182f740/employees`,
           { headers: { Authorization: 'Bearer ' + authToken } }
         );
         setEmployeesList(response.data);
