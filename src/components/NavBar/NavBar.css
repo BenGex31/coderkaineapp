@@ -1,0 +1,22 @@
+.containerNavBarHome {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 22px 0px 22px;
+  background-color: #ffffff;
+  height: 57px;
+}
+
+.containerNavBarRight {
+  display: flex;
+  justify-content: space-between;
+  width: 250px;
+}
+
+.containerNavBarRight span:nth-child(1) {
+  font-weight: bold;
+}
+
+.containerNavBarRight span:nth-child(2) {
+  cursor: pointer;
+}
