@@ -13,3 +13,22 @@ body {
   padding-right: 70px;
   padding-bottom: 50px;
 }
+
+@media all and (max-width: 425px) {
+  .containerListEmployees {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  .MuiTableRow-root.MuiTableRow-head.css-1q1u3t4-MuiTableRow-root
+    th:nth-child(3),
+  .MuiTableRow-root.css-34nofg-MuiTableRow-root td:nth-child(3) {
+    display: none;
+  }
+}
+
+@media all and (max-width: 320px) {
+  .MuiTableRow-root.css-34nofg-MuiTableRow-root th,
+  .MuiTableRow-root.css-34nofg-MuiTableRow-root td {
+    font-size: 10px;
+  }
+}
