@@ -6,10 +6,11 @@ import './Home.css';
 import axios from 'axios';
 import TableEmployees from '../../components/TableEmployees/TableEmployees';
 import Container from '@mui/material/Container';
+import LinearProgress from '@mui/material/LinearProgress';
 
 const Home = () => {
   const [employeesList, setEmployeesList] = useState([]);
-  const [isDataLoading, setDataLoading] = useState(false);
+  const [isDataLoading, setDataLoading] = useState(true);
   const { apiInfo } = useContext(AuthUser);
 
   const companyId = apiInfo.company.id;
@@ -17,14 +18,14 @@ const Home = () => {
 
   useEffect(() => {
     const fetchEmployees = async () => {
-      setDataLoading(true);
       try {
         const response = await axios.get(
-          `https://api-pp.hifivework.com/apiv1/company/5feddd469ec49b001182f740/employees`,
+          `https://api-pp.hifivework.com/apiv1/company/${companyId}/employees`,
           { headers: { Authorization: 'Bearer ' + authToken } }
         );
         setEmployeesList(response.data);
         console.log(employeesList);
+        setDataLoading(false);
       } catch (error) {
         console.error(error);
       }
@@ -33,7 +34,11 @@ const Home = () => {
   }, [companyId, authToken, employeesList]);
 
   const displayList = () => {
-    return <TableEmployees rows={employeesList} />;
+    if (isDataLoading) {
+      return <LinearProgress />;
+    } else {
+      return <TableEmployees rows={employeesList} />;
+    }
   };
 
   return (
