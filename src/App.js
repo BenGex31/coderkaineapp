@@ -9,7 +9,7 @@ import AutenticatedRoute from './components/AuthenticatedRoute/AutenticatedRoute
 import AuthUser from './context/AuthUser';
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(hasAuthenticated());
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [apiInfo, setApiInfo] = useState(null);
   return (
     <Auth.Provider value={{ isAuthenticated, setIsAuthenticated }}>
