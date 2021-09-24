@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -8,6 +8,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import colors from '../../utils/style/colors';
 import IconEdit from '../icons/IconEdit';
+import AuthUser from '../../context/AuthUser';
 
 const stylesTableCellHead = {
   fontSize: 12,
@@ -19,12 +20,23 @@ const stylesTableCellHead = {
 
 const stylesTableCellBody = {
   borderColor: colors.lightBlue,
+  color: colors.darkBlue,
   fontSize: 12,
   fontWeight: 'normal',
   fontFamily: 'Montserrat, sans-serif',
 };
 
+const stylesTableCellBodyUser = {
+  borderColor: colors.lightBlue,
+  color: colors.darkBlue,
+  fontSize: 12,
+  fontWeight: 700,
+  fontFamily: 'Montserrat, sans-serif',
+};
+
 const TableEmployees = ({ rows }) => {
+  const { apiInfo } = useContext(AuthUser);
+
   return (
     <TableContainer component={Paper}>
       <Table size="medium" aria-label="employees list">
@@ -47,21 +59,41 @@ const TableEmployees = ({ rows }) => {
             <TableRow
               key={row.id}
               sx={{
-                '&:last-child td, &:last-child th': { border: 0 },
+                '&:last-child td, &:last-child th': {
+                  border: 0,
+                },
               }}
             >
               <TableCell
-                sx={stylesTableCellBody}
+                sx={
+                  row.id === apiInfo.id
+                    ? stylesTableCellBodyUser
+                    : stylesTableCellBody
+                }
                 align="left"
                 component="th"
                 scope="row"
               >
                 {row.lastName}
               </TableCell>
-              <TableCell sx={stylesTableCellBody} align="left">
+              <TableCell
+                sx={
+                  row.id === apiInfo.id
+                    ? stylesTableCellBodyUser
+                    : stylesTableCellBody
+                }
+                align="left"
+              >
                 {row.firstName}
               </TableCell>
-              <TableCell sx={stylesTableCellBody} align="left">
+              <TableCell
+                sx={
+                  row.id === apiInfo.id
+                    ? stylesTableCellBodyUser
+                    : stylesTableCellBody
+                }
+                align="left"
+              >
                 {row.mail}
               </TableCell>
               <TableCell>
