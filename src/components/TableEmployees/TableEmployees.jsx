@@ -34,7 +34,7 @@ const stylesTableCellBodyUser = {
   fontFamily: 'Montserrat, sans-serif',
 };
 
-const TableEmployees = ({ rows }) => {
+const TableEmployees = ({ rows, onClick }) => {
   const { apiInfo } = useContext(AuthUser);
 
   return (
@@ -97,7 +97,7 @@ const TableEmployees = ({ rows }) => {
                 {row.mail}
               </TableCell>
               <TableCell>
-                <IconEdit />
+                <IconEdit onClick={onClick} />
               </TableCell>
             </TableRow>
           ))}
