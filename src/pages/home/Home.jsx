@@ -1,16 +1,19 @@
 import React, { useEffect, useState, useContext } from 'react';
 import NavBar from '../../components/NavBar/NavBar';
-import colors from '../../utils/style/colors';
 import AuthUser from '../../context/AuthUser';
 import './Home.css';
 import axios from 'axios';
 import TableEmployees from '../../components/TableEmployees/TableEmployees';
 import Container from '@mui/material/Container';
 import LinearProgress from '@mui/material/LinearProgress';
+import SwipeableTemporaryDrawer from '../../components/Drawer/SwipeableTemporaryDrawer';
+import TitleH2 from '../../components/Titles/TitleH2';
+import NumberResults from '../../components/Results/NumberResults';
 
 const Home = () => {
   const [employeesList, setEmployeesList] = useState([]);
   const [isDataLoading, setDataLoading] = useState(true);
+  const [isOpenDrawer, setIsOpenDrawer] = useState(false);
   const { apiInfo } = useContext(AuthUser);
 
   const companyId = apiInfo.company.id;
@@ -33,11 +36,24 @@ const Home = () => {
     fetchEmployees();
   }, [companyId, authToken, employeesList]);
 
+  const toggleDrawer = (open) => (event) => {
+    if (
+      event &&
+      event.type === 'keydown' &&
+      (event.key === 'Tab' || event.key === 'Shift')
+    ) {
+      return;
+    }
+    setIsOpenDrawer(open);
+  };
+
   const displayList = () => {
     if (isDataLoading) {
       return <LinearProgress />;
     } else {
-      return <TableEmployees rows={employeesList} />;
+      return (
+        <TableEmployees onClick={toggleDrawer(true)} rows={employeesList} />
+      );
     }
   };
 
@@ -47,21 +63,16 @@ const Home = () => {
       <Container maxWidth="lg">
         <div className="containerListEmployees">
           <div style={{ paddingBottom: 22, paddingTop: 22 }}>
-            <h2 style={{ fontSize: 16 }}>Liste des employés</h2>
-            <span
-              style={{
-                fontFamily: 'Montserrat, sans-serif',
-                fontWeight: 500,
-                fontSize: 13,
-                color: colors.lightBlue,
-              }}
-            >
-              {employeesList.length <= 1
-                ? employeesList.length + ' résultat'
-                : employeesList.length + ' résultats'}
-            </span>
+            <TitleH2 text="Modification d’un employé" />
+            <NumberResults list={employeesList} />
           </div>
           <div>{displayList()}</div>
+          <SwipeableTemporaryDrawer
+            anchor="right"
+            isOpenDrawer={isOpenDrawer}
+            onCloseDrawer={toggleDrawer(false)}
+            onOpenDrawer={toggleDrawer(true)}
+          />
         </div>
       </Container>
     </div>
