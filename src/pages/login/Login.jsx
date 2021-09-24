@@ -63,8 +63,6 @@ const Login = ({ history }) => {
 
   const handleLogin = async () => {
     try {
-      //const response = await LoginUser(email, password);
-      //setIsAuthenticated(response);
       const response = await axios.post(
         'https://api-pp.hifivework.com/apiv1/auth/login',
         {
