@@ -11,6 +11,7 @@ import Auth from '../../context/Auth';
 import axios from 'axios';
 import AuthUser from '../../context/AuthUser';
 import { addItem } from '../../utils/LocalStorage/LocalStorage';
+import { fontSize } from '@mui/system';
 
 const Login = ({ history }) => {
   const { isAuthenticated, setIsAuthenticated } = useContext(Auth);
@@ -22,7 +23,7 @@ const Login = ({ history }) => {
   const [message, setMessage] = useState('');
   const [isValidPassword, setIsValidPassword] = useState(false);
   const [errorMessagePassword, setErrorMessagePassword] = useState('');
-  //const [loginError, setLoginError] = useState('');
+  const [loginError, setLoginError] = useState(false);
 
   const emailRegex = /\S+@\S+\.\S+/;
 
@@ -79,6 +80,7 @@ const Login = ({ history }) => {
       history.replace('/home');
     } catch (error) {
       console.error(error);
+      setLoginError(true);
     }
   };
 
@@ -110,7 +112,6 @@ const Login = ({ history }) => {
         </div>
         <div className="loginForm">
           <TextFieldEmail
-            //error={isValidEmail ? false : true}
             onChange={handleChangeEmail}
             id="email"
             label="E-mail"
@@ -122,7 +123,6 @@ const Login = ({ history }) => {
             <span style={{ color: 'red', fontSize: 12 }}>{message}</span>
           )}
           <TextFieldPassword
-            //error={isValidPassword ? false : true}
             id="password"
             type={passwordVisibility ? 'text' : 'password'}
             value={password}
@@ -143,6 +143,19 @@ const Login = ({ history }) => {
             </span>
           )}
         </div>
+        {loginError ? (
+          <span
+            style={{
+              fontFamily: 'Montserrat, sans-serif',
+              fontSize: 13,
+              color: 'red',
+            }}
+          >
+            Votre email et/ou mot de passe est erroné !
+          </span>
+        ) : (
+          ''
+        )}
         <div className="loginButton">
           <LoginButton
             onClick={handleLogin}
