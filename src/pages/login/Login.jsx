@@ -129,7 +129,7 @@ const Login = ({ history }) => {
             onChange={handleChangePassword('password')}
             onClick={handleClickShowPassword}
             onMouseDown={handleMouseDownPassword}
-            visibility
+            visibility={passwordVisibility}
           />
           {isValidPassword ? (
             <span style={{ color: 'green', fontSize: 12 }}>
