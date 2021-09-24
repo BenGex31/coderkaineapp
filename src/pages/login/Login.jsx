@@ -11,7 +11,6 @@ import Auth from '../../context/Auth';
 import axios from 'axios';
 import AuthUser from '../../context/AuthUser';
 import { addItem } from '../../utils/LocalStorage/LocalStorage';
-import { fontSize } from '@mui/system';
 
 const Login = ({ history }) => {
   const { isAuthenticated, setIsAuthenticated } = useContext(Auth);
