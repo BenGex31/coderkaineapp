@@ -72,6 +72,7 @@ const Home = () => {
             isOpenDrawer={isOpenDrawer}
             onCloseDrawer={toggleDrawer(false)}
             onOpenDrawer={toggleDrawer(true)}
+            onClick={toggleDrawer(false)}
           />
         </div>
       </Container>
