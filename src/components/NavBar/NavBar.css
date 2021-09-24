@@ -26,3 +26,12 @@
   cursor: pointer;
   font-weight: 400;
 }
+
+@media all and (max-width: 320px) {
+  .containerNavBarRight {
+    justify-content: space-around;
+  }
+  .containerNavBarRight span {
+    font-size: 12px;
+  }
+}
