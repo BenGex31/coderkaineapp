@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import logoCoderKaine from '../../assets/logo/logo-coderkaine.svg';
 import LoginButton from '../../components/Button/LoginButton';
 import illustrationCoderKaine from '../../assets/loginImg/illustration-coderkaine.svg';
@@ -8,12 +8,12 @@ import './Login.css';
 import colors from '../../utils/style/colors';
 import Auth from '../../context/Auth';
 import axios from 'axios';
-import AuthUser from '../../context/AuthUser';
+//import AuthUser from '../../context/AuthUser';
 import { addItem } from '../../utils/LocalStorage/LocalStorage';
 
 const Login = ({ history }) => {
-  const { isAuthenticated, setIsAuthenticated } = useContext(Auth);
-  const { setApiInfo } = useContext(AuthUser);
+  const { setCurrentUser, setIsAuthenticated } = useContext(Auth);
+  //const { setApiInfo } = useContext(AuthUser);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordVisibility, setPasswordVisibility] = useState(false);
@@ -71,7 +71,7 @@ const Login = ({ history }) => {
         }
       );
       setIsAuthenticated(true);
-      setApiInfo(response.data);
+      setCurrentUser(response.data);
       addItem('coderkaineToken', response.data.authToken);
       history.replace('/home');
     } catch (error) {
@@ -79,12 +79,6 @@ const Login = ({ history }) => {
       setLoginError(true);
     }
   };
-
-  useEffect(() => {
-    if (isAuthenticated) {
-      history.replace('/home');
-    }
-  }, [history, isAuthenticated]);
 
   return (
     <div className="loginMainContainer">
