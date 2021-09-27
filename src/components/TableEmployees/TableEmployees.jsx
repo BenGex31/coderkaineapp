@@ -8,7 +8,6 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import colors from '../../utils/style/colors';
 import IconEdit from '../icons/IconEdit';
-//import AuthUser from '../../context/AuthUser';
 import Auth from '../../context/Auth';
 
 const stylesTableCellHead = {
