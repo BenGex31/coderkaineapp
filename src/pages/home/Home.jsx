@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 import NavBar from '../../components/NavBar/NavBar';
-import AuthUser from '../../context/AuthUser';
+//import AuthUser from '../../context/AuthUser';
 import './Home.css';
 import axios from 'axios';
 import TableEmployees from '../../components/TableEmployees/TableEmployees';
@@ -9,15 +9,16 @@ import LinearProgress from '@mui/material/LinearProgress';
 import SwipeableTemporaryDrawer from '../../components/Drawer/SwipeableTemporaryDrawer';
 import TitleH2 from '../../components/Titles/TitleH2';
 import NumberResults from '../../components/Results/NumberResults';
+import Auth from '../../context/Auth';
 
 const Home = () => {
   const [employeesList, setEmployeesList] = useState([]);
   const [isDataLoading, setDataLoading] = useState(true);
   const [isOpenDrawer, setIsOpenDrawer] = useState(false);
-  const { apiInfo } = useContext(AuthUser);
+  const { currentUser } = useContext(Auth);
 
-  const companyId = apiInfo.company.id;
-  const authToken = apiInfo.authToken;
+  const companyId = currentUser.company.id;
+  const authToken = currentUser.authToken;
 
   useEffect(() => {
     const fetchEmployees = async () => {
