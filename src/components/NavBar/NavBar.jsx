@@ -2,16 +2,17 @@ import React, { useContext } from 'react';
 import { logout } from '../../utils/API/AuthApi';
 import logoCoderKaine from '../../assets/logo/logo-coderkaine.svg';
 import './NavBar.css';
-import AuthUser from '../../context/AuthUser';
+//import AuthUser from '../../context/AuthUser';
 import Auth from '../../context/Auth';
 
 const NavBar = () => {
-  const { setIsAuthenticated } = useContext(Auth);
-  const { apiInfo } = useContext(AuthUser);
-  console.log(apiInfo);
+  const { setIsAuthenticated, setCurrentUser, currentUser } = useContext(Auth);
+  //const { apiInfo, setApiInfo } = useContext(AuthUser);
+  console.log(currentUser);
   const handleLogOut = () => {
     logout();
     setIsAuthenticated(false);
+    setCurrentUser(null);
     console.log('Déconnexion');
   };
 
@@ -25,7 +26,7 @@ const NavBar = () => {
         />
       </div>
       <div className="containerNavBarRight">
-        <span>Bonjour {apiInfo.firstname} ! </span>
+        <span>Bonjour {currentUser.firstname} ! </span>
         <span onClick={handleLogOut}>Se déconnecter</span>
       </div>
     </div>
