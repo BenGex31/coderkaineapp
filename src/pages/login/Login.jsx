@@ -33,7 +33,6 @@ const Login = ({ history }) => {
       setMessage('Entrez une adresse mail valide!');
     }
     setEmail(event.target.value);
-    console.log(email);
   };
 
   const handleChangePassword = () => (event) => {
