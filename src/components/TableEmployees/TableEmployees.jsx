@@ -35,7 +35,7 @@ const stylesTableCellBodyUser = {
   fontFamily: 'Montserrat, sans-serif',
 };
 
-const TableEmployees = ({ rows, onClick }) => {
+const TableEmployees = ({ employees, openDrawer }) => {
   const { currentUser } = useContext(Auth);
 
   return (
@@ -56,9 +56,9 @@ const TableEmployees = ({ rows, onClick }) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
+          {employees.map((employee) => (
             <TableRow
-              key={row.id}
+              key={employee.id}
               sx={{
                 '&:last-child td, &:last-child th': {
                   border: 0,
@@ -67,7 +67,7 @@ const TableEmployees = ({ rows, onClick }) => {
             >
               <TableCell
                 sx={
-                  row.id === currentUser.id
+                  employee.id === currentUser.id
                     ? stylesTableCellBodyUser
                     : stylesTableCellBody
                 }
@@ -75,30 +75,30 @@ const TableEmployees = ({ rows, onClick }) => {
                 component="th"
                 scope="row"
               >
-                {row.lastName}
+                {employee.lastName}
               </TableCell>
               <TableCell
                 sx={
-                  row.id === currentUser.id
+                  employee.id === currentUser.id
                     ? stylesTableCellBodyUser
                     : stylesTableCellBody
                 }
                 align="left"
               >
-                {row.firstName}
+                {employee.firstName}
               </TableCell>
               <TableCell
                 sx={
-                  row.id === currentUser.id
+                  employee.id === currentUser.id
                     ? stylesTableCellBodyUser
                     : stylesTableCellBody
                 }
                 align="left"
               >
-                {row.mail}
+                {employee.mail}
               </TableCell>
               <TableCell>
-                <IconEdit onClick={onClick} />
+                <IconEdit onClick={openDrawer} />
               </TableCell>
             </TableRow>
           ))}
