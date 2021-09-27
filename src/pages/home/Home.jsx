@@ -14,8 +14,8 @@ const Home = () => {
   const [employeesList, setEmployeesList] = useState([]);
   const [isDataLoading, setDataLoading] = useState(true);
   const [isOpenDrawer, setIsOpenDrawer] = useState(false);
+  const { currentUser, setEmployees } = useContext(Auth);
 
-  const { currentUser } = useContext(Auth);
   const companyId = currentUser.company.id;
   const authToken = currentUser.authToken;
 
@@ -27,14 +27,14 @@ const Home = () => {
           { headers: { Authorization: 'Bearer ' + authToken } }
         );
         setEmployeesList(response.data);
-        console.log(employeesList);
+        setEmployees(response.data);
         setDataLoading(false);
       } catch (error) {
         console.error(error);
       }
     };
     fetchEmployees();
-  }, [companyId, authToken, employeesList]);
+  }, [companyId, authToken, employeesList, setEmployees]);
 
   const toggleDrawer = (open) => (event) => {
     if (
@@ -52,7 +52,10 @@ const Home = () => {
       return <LinearProgress />;
     } else {
       return (
-        <TableEmployees onClick={toggleDrawer(true)} rows={employeesList} />
+        <TableEmployees
+          openDrawer={toggleDrawer(true)}
+          employees={employeesList}
+        />
       );
     }
   };
@@ -72,7 +75,8 @@ const Home = () => {
             isOpenDrawer={isOpenDrawer}
             onCloseDrawer={toggleDrawer(false)}
             onOpenDrawer={toggleDrawer(true)}
-            onClick={toggleDrawer(false)}
+            closeDrawer={toggleDrawer(false)}
+            employeelist={employeesList}
           />
         </div>
       </Container>
