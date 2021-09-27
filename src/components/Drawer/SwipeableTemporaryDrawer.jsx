@@ -6,6 +6,7 @@ import Stack from '@mui/material/Stack';
 import IconClose from '../icons/IconClose';
 import colors from '../../utils/style/colors';
 import TextFieldInput from '../TextField/TextField';
+import UpdateButton from '../Button/Button';
 
 const SwipeableTemporaryDrawer = ({
   anchor,
@@ -44,8 +45,34 @@ const SwipeableTemporaryDrawer = ({
           </p>
         </Stack>
         <Stack spacing={3}>
-          <TextFieldInput id="lastName" label="Nom" variant="outlined" />
-          <TextFieldInput id="firstName" label="Prénom" variant="outlined" />
+          <TextFieldInput
+            id="lastName"
+            label="Nom"
+            variant="outlined"
+            defaultValue="userLastName"
+          />
+          <TextFieldInput
+            id="firstName"
+            label="Prénom"
+            variant="outlined"
+            defaultValue="userFirstName"
+          />
+        </Stack>
+        <Stack direction="row" justifyContent="flex-end">
+          <UpdateButton
+            variant="contained"
+            text="Modifier"
+            style={{
+              backgroundColor: colors.darkBlue,
+              color: 'white',
+              width: 180,
+              height: 38,
+              fontSize: 14,
+              fontWeight: 400,
+              borderRadius: 5,
+              fontFamily: 'Montserrat, sans-serif',
+            }}
+          />
         </Stack>
       </Stack>
     </Box>
