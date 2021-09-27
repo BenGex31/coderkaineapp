@@ -8,7 +8,7 @@ const AutenticatedRoute = ({ path, component }) => {
   return isAuthenticated ? (
     <Route exact path={path} component={component} />
   ) : (
-    <Redirect to="/login" />
+    <Redirect to="/" />
   );
 };
 
