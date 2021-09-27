@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
 import NavBar from '../../components/NavBar/NavBar';
-//import AuthUser from '../../context/AuthUser';
 import './Home.css';
 import axios from 'axios';
 import TableEmployees from '../../components/TableEmployees/TableEmployees';
@@ -15,8 +14,8 @@ const Home = () => {
   const [employeesList, setEmployeesList] = useState([]);
   const [isDataLoading, setDataLoading] = useState(true);
   const [isOpenDrawer, setIsOpenDrawer] = useState(false);
-  const { currentUser } = useContext(Auth);
 
+  const { currentUser } = useContext(Auth);
   const companyId = currentUser.company.id;
   const authToken = currentUser.authToken;
 
