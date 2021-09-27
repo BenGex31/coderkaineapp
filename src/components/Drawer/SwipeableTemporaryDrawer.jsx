@@ -22,11 +22,17 @@ const SwipeableTemporaryDrawer = ({
   const [employeeLastName, setEmployeeLastName] = useState('');
   const [employeeFirstname, setEmployeeFirstName] = useState('');
 
-  const setUser = async (lastName, firstName) => {
+  const setUser = async () => {
     try {
       await axios.patch(
         `https://api-pp.hifivework.com/apiv1/auth/${currentUser.id}`,
-        { firstname: employeeFirstname, lastname: employeeLastName }
+        { firstname: employeeFirstname, lastname: employeeLastName },
+        {
+          headers: {
+            Authorization: `Bearer ${currentUser.authToken}`,
+            Accept: '*/*',
+          },
+        }
       );
     } catch (error) {
       console.error(error);
@@ -73,6 +79,7 @@ const SwipeableTemporaryDrawer = ({
             </Stack>
             <Stack spacing={3}>
               <TextFieldInput
+                onChange={(text) => setEmployeeLastName(text.target.value)}
                 id="lastName"
                 label="Nom"
                 variant="outlined"
@@ -81,6 +88,7 @@ const SwipeableTemporaryDrawer = ({
                   .map((employee) => employee.lastName)}
               />
               <TextFieldInput
+                onChange={(text) => setEmployeeFirstName(text.target.value)}
                 id="firstName"
                 label="Prénom"
                 variant="outlined"
@@ -91,7 +99,7 @@ const SwipeableTemporaryDrawer = ({
             </Stack>
             <Stack direction="row" justifyContent="flex-end">
               <UpdateButton
-                //onClick={}
+                onClick={setUser}
                 variant="contained"
                 text="Modifier"
                 style={{
