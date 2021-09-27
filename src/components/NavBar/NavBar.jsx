@@ -24,7 +24,7 @@ const NavBar = () => {
         />
       </div>
       <div className="containerNavBarRight">
-        <span>Bonjour {currentUser.firstname} ! </span>
+        <span>Bonjour {currentUser?.firstname || ''} ! </span>
         <span onClick={handleLogOut}>Se déconnecter</span>
       </div>
     </div>
