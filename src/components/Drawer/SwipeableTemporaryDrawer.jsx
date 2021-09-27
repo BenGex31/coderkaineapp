@@ -15,8 +15,6 @@ const SwipeableTemporaryDrawer = ({
   onCloseDrawer,
   onOpenDrawer,
   closeDrawer,
-  displayEmployeeLastName,
-  displayEmployeeFirstName,
 }) => {
   const { employees } = useContext(Auth);
 
@@ -61,13 +59,13 @@ const SwipeableTemporaryDrawer = ({
                 id="lastName"
                 label="Nom"
                 variant="outlined"
-                defaultValue="userLastName"
+                defaultValue="LastName"
               />
               <TextFieldInput
                 id="firstName"
                 label="Prénom"
                 variant="outlined"
-                defaultValue="userFirstName"
+                defaultValue="firstName"
               />
             </Stack>
             <Stack direction="row" justifyContent="flex-end">
