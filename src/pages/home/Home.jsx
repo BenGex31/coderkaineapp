@@ -66,7 +66,7 @@ const Home = () => {
       <Container maxWidth="lg">
         <div className="containerListEmployees">
           <div style={{ paddingBottom: 22, paddingTop: 22 }}>
-            <TitleH2 text="Modification d’un employé" />
+            <TitleH2 text="Liste des employés" />
             <NumberResults list={employeesList} />
           </div>
           <div>{displayList()}</div>
@@ -76,7 +76,6 @@ const Home = () => {
             onCloseDrawer={toggleDrawer(false)}
             onOpenDrawer={toggleDrawer(true)}
             closeDrawer={toggleDrawer(false)}
-            employeelist={employeesList}
           />
         </div>
       </Container>
