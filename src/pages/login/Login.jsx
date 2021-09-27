@@ -8,7 +8,7 @@ import './Login.css';
 import colors from '../../utils/style/colors';
 import Auth from '../../context/Auth';
 import axios from 'axios';
-import { addItem, getItem } from '../../utils/LocalStorage/LocalStorage';
+import { addItem } from '../../utils/LocalStorage/LocalStorage';
 
 const Login = ({ history }) => {
   const { setCurrentUser, setIsAuthenticated } = useContext(Auth);
