@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import logoCoderKaine from '../../assets/logo/logo-coderkaine.svg';
-import LoginButton from '../../components/Button/LoginButton';
+import LoginButton from '../../components/Button/Button';
 import illustrationCoderKaine from '../../assets/loginImg/illustration-coderkaine.svg';
 import TextFieldEmail from '../../components/TextField/TextField';
 import TextFieldPassword from '../../components/TextField/TextFieldPassword';
@@ -8,12 +8,10 @@ import './Login.css';
 import colors from '../../utils/style/colors';
 import Auth from '../../context/Auth';
 import axios from 'axios';
-//import AuthUser from '../../context/AuthUser';
 import { addItem } from '../../utils/LocalStorage/LocalStorage';
 
 const Login = ({ history }) => {
   const { setCurrentUser, setIsAuthenticated } = useContext(Auth);
-  //const { setApiInfo } = useContext(AuthUser);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordVisibility, setPasswordVisibility] = useState(false);
