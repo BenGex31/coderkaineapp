@@ -9,6 +9,7 @@ import SwipeableTemporaryDrawer from '../../components/Drawer/SwipeableTemporary
 import TitleH2 from '../../components/Titles/TitleH2';
 import NumberResults from '../../components/Results/NumberResults';
 import Auth from '../../context/Auth';
+import { getItem } from '../../utils/LocalStorage/LocalStorage';
 
 const Home = () => {
   const [employeesList, setEmployeesList] = useState([]);
@@ -16,17 +17,38 @@ const Home = () => {
   const [isOpenDrawer, setIsOpenDrawer] = useState(false);
   const { currentUser, setEmployees } = useContext(Auth);
 
-  const companyId = currentUser.company.id;
-  const authToken = currentUser.authToken;
+  let companyId;
+  console.log('getiTem', getItem('companyId'));
+  let authToken;
+  if (currentUser) {
+    if (currentUser.company) {
+      companyId = currentUser.company.id;
+      console.log('companyId1', companyId);
+    } else {
+      companyId = getItem('companyId');
+      console.log('companyId2', companyId);
+    }
+    authToken = currentUser.authToken;
+  }
 
   useEffect(() => {
     const fetchEmployees = async () => {
       try {
         const response = await axios.get(
-          `https://api-pp.hifivework.com/apiv1/company/${companyId}/employees`,
-          { headers: { Authorization: 'Bearer ' + authToken } }
+          `https://api-pp.hifivework.com/apiv1/company/${
+            companyId || getItem('companyId')
+          }/employees`,
+          {
+            withCredentials: true,
+            headers: {
+              Authorization: `Bearer ${authToken}`,
+              'Content-Type': 'application/json',
+              Accept: '*/*',
+            },
+          }
         );
         setEmployeesList(response.data);
+        console.log('authToken', authToken);
         setEmployees(response.data);
         setDataLoading(false);
       } catch (error) {
@@ -34,7 +56,7 @@ const Home = () => {
       }
     };
     fetchEmployees();
-  }, [companyId, authToken, employeesList, setEmployees]);
+  }, []);
 
   const toggleDrawer = (open) => (event) => {
     if (
@@ -44,6 +66,7 @@ const Home = () => {
     ) {
       return;
     }
+    console.log('event', event);
     setIsOpenDrawer(open);
   };
 
@@ -76,6 +99,7 @@ const Home = () => {
             onCloseDrawer={toggleDrawer(false)}
             onOpenDrawer={toggleDrawer(true)}
             closeDrawer={toggleDrawer(false)}
+            listEmployees={employeesList}
           />
         </div>
       </Container>
