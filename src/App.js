@@ -10,9 +10,9 @@ import AutenticatedRoute from './components/AuthenticatedRoute/AutenticatedRoute
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(hasAuthenticated());
   const [currentUser, setCurrentUser] = useState(null);
-  //const [employees, setEmployees] = useState(null)
+  const [employees, setEmployees] = useState(null);
   return (
-    <Auth.Provider value={{ isAuthenticated, setIsAuthenticated, currentUser, setCurrentUser }}>
+    <Auth.Provider value={{ isAuthenticated, setIsAuthenticated, currentUser, setCurrentUser, employees, setEmployees }}>
         <Router>
           <Switch>
             <Route exact path="/" component={Login} />
