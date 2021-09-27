@@ -8,7 +8,7 @@ import './Login.css';
 import colors from '../../utils/style/colors';
 import Auth from '../../context/Auth';
 import axios from 'axios';
-import { addItem } from '../../utils/LocalStorage/LocalStorage';
+import { addItem, getItem } from '../../utils/LocalStorage/LocalStorage';
 
 const Login = ({ history }) => {
   const { setCurrentUser, setIsAuthenticated } = useContext(Auth);
@@ -67,9 +67,12 @@ const Login = ({ history }) => {
           password: password,
         }
       );
+      console.log('handlelogin', response.data);
+
       setIsAuthenticated(true);
       setCurrentUser(response.data);
       addItem('coderkaineToken', response.data.authToken);
+      addItem('companyId', response.data.company.id);
       history.replace('/home');
     } catch (error) {
       console.error(error);
