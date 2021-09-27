@@ -8,7 +8,8 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import colors from '../../utils/style/colors';
 import IconEdit from '../icons/IconEdit';
-import AuthUser from '../../context/AuthUser';
+//import AuthUser from '../../context/AuthUser';
+import Auth from '../../context/Auth';
 
 const stylesTableCellHead = {
   fontSize: 12,
@@ -35,7 +36,7 @@ const stylesTableCellBodyUser = {
 };
 
 const TableEmployees = ({ rows, onClick }) => {
-  const { apiInfo } = useContext(AuthUser);
+  const { currentUser } = useContext(Auth);
 
   return (
     <TableContainer component={Paper}>
@@ -66,7 +67,7 @@ const TableEmployees = ({ rows, onClick }) => {
             >
               <TableCell
                 sx={
-                  row.id === apiInfo.id
+                  row.id === currentUser.id
                     ? stylesTableCellBodyUser
                     : stylesTableCellBody
                 }
@@ -78,7 +79,7 @@ const TableEmployees = ({ rows, onClick }) => {
               </TableCell>
               <TableCell
                 sx={
-                  row.id === apiInfo.id
+                  row.id === currentUser.id
                     ? stylesTableCellBodyUser
                     : stylesTableCellBody
                 }
@@ -88,7 +89,7 @@ const TableEmployees = ({ rows, onClick }) => {
               </TableCell>
               <TableCell
                 sx={
-                  row.id === apiInfo.id
+                  row.id === currentUser.id
                     ? stylesTableCellBodyUser
                     : stylesTableCellBody
                 }
