@@ -18,7 +18,7 @@ const Home = () => {
   const { currentUser, setEmployees } = useContext(Auth);
 
   let companyId;
-  console.log('getiTem', getItem('companyId'));
+  console.log('getItem ', getItem('companyId'));
   let authToken;
   if (currentUser) {
     if (currentUser.company) {
@@ -39,11 +39,9 @@ const Home = () => {
             companyId || getItem('companyId')
           }/employees`,
           {
-            withCredentials: true,
             headers: {
               Authorization: `Bearer ${authToken}`,
               'Content-Type': 'application/json',
-              Accept: '*/*',
             },
           }
         );
@@ -56,7 +54,7 @@ const Home = () => {
       }
     };
     fetchEmployees();
-  }, []);
+  }, [setEmployeesList, setEmployees, authToken, companyId]);
 
   const toggleDrawer = (open) => (event) => {
     if (
