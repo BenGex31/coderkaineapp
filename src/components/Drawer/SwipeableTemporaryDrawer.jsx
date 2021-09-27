@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import Box from '@mui/material/Box';
 import TitleH2 from '../Titles/TitleH2';
@@ -8,6 +8,7 @@ import colors from '../../utils/style/colors';
 import TextFieldInput from '../TextField/TextField';
 import UpdateButton from '../Button/Button';
 import Auth from '../../context/Auth';
+import axios from 'axios';
 
 const SwipeableTemporaryDrawer = ({
   anchor,
@@ -15,8 +16,24 @@ const SwipeableTemporaryDrawer = ({
   onCloseDrawer,
   onOpenDrawer,
   closeDrawer,
+  listEmployees,
 }) => {
-  const { employees } = useContext(Auth);
+  const { currentUser } = useContext(Auth);
+  const [employeeLastName, setEmployeeLastName] = useState('');
+  const [employeeFirstname, setEmployeeFirstName] = useState('');
+
+  const setUser = async (lastName, firstName) => {
+    try {
+      await axios.patch(
+        `https://api-pp.hifivework.com/apiv1/auth/${currentUser.id}`,
+        { firstname: employeeFirstname, lastname: employeeLastName }
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  console.log('liste', listEmployees);
 
   return (
     <div>
@@ -59,13 +76,17 @@ const SwipeableTemporaryDrawer = ({
                 id="lastName"
                 label="Nom"
                 variant="outlined"
-                defaultValue="LastName"
+                defaultValue={listEmployees
+                  .filter((employee) => employee.id === currentUser.id)
+                  .map((employee) => employee.lastName)}
               />
               <TextFieldInput
                 id="firstName"
                 label="Prénom"
                 variant="outlined"
-                defaultValue="firstName"
+                defaultValue={listEmployees
+                  .filter((employee) => employee.id === currentUser.id)
+                  .map((employee) => employee.firstName)}
               />
             </Stack>
             <Stack direction="row" justifyContent="flex-end">
