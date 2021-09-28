@@ -1,7 +1,10 @@
 //import { useContext } from 'react';
 //import axios from 'axios';
 //import jwtDecode from 'jwt-decode';
-import { getItem/*, addItem*/, removeItem } from '../LocalStorage/LocalStorage';
+import {
+  getItem /*, addItem*/,
+  removeItem,
+} from '../LocalStorage/LocalStorage';
 
 export function hasAuthenticated() {
   const token = getItem('coderkaineToken');
@@ -32,6 +35,7 @@ export function hasAuthenticated() {
 
 export function logout() {
   removeItem('coderkaineToken');
+  removeItem('companyId');
 }
 
 /*function tokenIsValid(token) {
