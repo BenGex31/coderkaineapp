@@ -5,8 +5,8 @@ import './NavBar.css';
 import Auth from '../../context/Auth';
 
 const NavBar = () => {
-  const { setIsAuthenticated, setCurrentUser, currentUser } = useContext(Auth);
-  const [firstName, setFirstName] = useState(currentUser?.firstname);
+  const { setIsAuthenticated, setCurrentUser, currentUser, employees } =
+    useContext(Auth);
   //console.log(currentUser);
   const handleLogOut = () => {
     logout();
@@ -14,10 +14,6 @@ const NavBar = () => {
     setCurrentUser(null);
     console.log('Déconnexion');
   };
-
-  useEffect(() => {
-    setFirstName(currentUser?.firstname);
-  }, [currentUser?.firstname]);
 
   return (
     <div className="containerNavBarHome">
@@ -29,7 +25,13 @@ const NavBar = () => {
         />
       </div>
       <div className="containerNavBarRight">
-        <span>Bonjour {firstName} ! </span>
+        <span>
+          Bonjour{' '}
+          {employees
+            .filter((employee) => employee.id === currentUser?.id)
+            .map((employee) => employee.firstName) || ''}{' '}
+          !{' '}
+        </span>
         <span onClick={handleLogOut}>Se déconnecter</span>
       </div>
     </div>
