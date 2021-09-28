@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import { logout } from '../../utils/API/AuthApi';
 import logoCoderKaine from '../../assets/logo/logo-coderkaine.svg';
 import './NavBar.css';
@@ -7,7 +7,7 @@ import Auth from '../../context/Auth';
 const NavBar = () => {
   const { setIsAuthenticated, setCurrentUser, currentUser, employees } =
     useContext(Auth);
-  //console.log(currentUser);
+
   const handleLogOut = () => {
     logout();
     setIsAuthenticated(false);
