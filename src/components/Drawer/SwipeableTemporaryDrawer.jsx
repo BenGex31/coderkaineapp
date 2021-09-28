@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import Box from '@mui/material/Box';
 import TitleH2 from '../Titles/TitleH2';
@@ -8,7 +8,6 @@ import colors from '../../utils/style/colors';
 import TextFieldInput from '../TextField/TextField';
 import UpdateButton from '../Button/Button';
 import Auth from '../../context/Auth';
-import axios from 'axios';
 
 const SwipeableTemporaryDrawer = ({
   anchor,
@@ -17,31 +16,11 @@ const SwipeableTemporaryDrawer = ({
   onOpenDrawer,
   closeDrawer,
   listEmployees,
+  onChangeLastName,
+  onChangeFirstName,
+  setUser,
 }) => {
   const { currentUser } = useContext(Auth);
-  const [employeeLastName, setEmployeeLastName] = useState(
-    currentUser?.lastname || ''
-  );
-  const [employeeFirstname, setEmployeeFirstName] = useState(
-    currentUser?.firstname || ''
-  );
-
-  const setUser = async () => {
-    try {
-      await axios.patch(
-        `https://api-pp.hifivework.com/apiv1/auth/${currentUser.id}`,
-        { firstname: employeeFirstname, lastname: employeeLastName },
-        {
-          headers: {
-            Authorization: `Bearer ${currentUser.authToken}`,
-            Accept: '*/*',
-          },
-        }
-      );
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
   return (
     <div>
@@ -81,7 +60,7 @@ const SwipeableTemporaryDrawer = ({
             </Stack>
             <Stack spacing={3}>
               <TextFieldInput
-                onChange={(text) => setEmployeeLastName(text.target.value)}
+                onChange={onChangeLastName}
                 id="lastName"
                 label="Nom"
                 variant="outlined"
@@ -90,7 +69,7 @@ const SwipeableTemporaryDrawer = ({
                   .map((employee) => employee.lastName)}
               />
               <TextFieldInput
-                onChange={(text) => setEmployeeFirstName(text.target.value)}
+                onChange={onChangeFirstName}
                 id="firstName"
                 label="Prénom"
                 variant="outlined"
