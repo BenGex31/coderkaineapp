@@ -19,8 +19,12 @@ const SwipeableTemporaryDrawer = ({
   listEmployees,
 }) => {
   const { currentUser } = useContext(Auth);
-  const [employeeLastName, setEmployeeLastName] = useState('');
-  const [employeeFirstname, setEmployeeFirstName] = useState('');
+  const [employeeLastName, setEmployeeLastName] = useState(
+    currentUser?.lastname || ''
+  );
+  const [employeeFirstname, setEmployeeFirstName] = useState(
+    currentUser?.firstname || ''
+  );
 
   const setUser = async () => {
     try {
@@ -38,8 +42,6 @@ const SwipeableTemporaryDrawer = ({
       console.error(error);
     }
   };
-
-  console.log('liste', listEmployees);
 
   return (
     <div>
