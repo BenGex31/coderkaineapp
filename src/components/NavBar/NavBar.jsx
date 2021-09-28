@@ -6,7 +6,7 @@ import Auth from '../../context/Auth';
 
 const NavBar = () => {
   const { setIsAuthenticated, setCurrentUser, currentUser } = useContext(Auth);
-  console.log(currentUser);
+  //console.log(currentUser);
   const handleLogOut = () => {
     logout();
     setIsAuthenticated(false);
