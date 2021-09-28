@@ -10,50 +10,42 @@ import TitleH2 from '../../components/Titles/TitleH2';
 import NumberResults from '../../components/Results/NumberResults';
 import Auth from '../../context/Auth';
 import { getItem } from '../../utils/LocalStorage/LocalStorage';
+import { fetchEmployees } from '../../utils/API/FetchEmployees';
 
 const Home = () => {
+  const { currentUser, setEmployees } = useContext(Auth);
   const [employeesList, setEmployeesList] = useState([]);
   const [isDataLoading, setDataLoading] = useState(true);
   const [isOpenDrawer, setIsOpenDrawer] = useState(false);
-  const { currentUser, setEmployees } = useContext(Auth);
+  const [employeeLastName, setEmployeeLastName] = useState(
+    currentUser?.lastname || ''
+  );
+  const [employeeFirstname, setEmployeeFirstName] = useState(
+    currentUser?.firstname || ''
+  );
 
   let companyId;
-  console.log('getItem ', getItem('companyId'));
+  //console.log('getItem ', getItem('companyId'));
   let authToken;
   if (currentUser) {
     if (currentUser.company) {
       companyId = currentUser.company.id;
-      console.log('companyId1', companyId);
+      //console.log('companyId1', companyId);
     } else {
       companyId = getItem('companyId');
-      console.log('companyId2', companyId);
+      //console.log('companyId2', companyId);
     }
     authToken = currentUser.authToken;
   }
 
   useEffect(() => {
-    const fetchEmployees = async () => {
-      try {
-        const response = await axios.get(
-          `https://api-pp.hifivework.com/apiv1/company/${
-            companyId || getItem('companyId')
-          }/employees`,
-          {
-            headers: {
-              Authorization: `Bearer ${authToken}`,
-              'Content-Type': 'application/json',
-            },
-          }
-        );
-        setEmployeesList(response.data);
-        console.log('authToken', authToken);
-        setEmployees(response.data);
-        setDataLoading(false);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchEmployees();
+    fetchEmployees(
+      companyId,
+      authToken,
+      setEmployeesList,
+      setEmployees,
+      setDataLoading
+    );
   }, [setEmployeesList, setEmployees, authToken, companyId]);
 
   const toggleDrawer = (open) => (event) => {
@@ -64,7 +56,7 @@ const Home = () => {
     ) {
       return;
     }
-    console.log('event', event);
+    //console.log('event', event);
     setIsOpenDrawer(open);
   };
 
@@ -81,12 +73,42 @@ const Home = () => {
     }
   };
 
+  const onChangeLastName = (text) => {
+    setEmployeeLastName(text.target.value);
+  };
+
+  const onChangeFirstName = (text) => {
+    setEmployeeFirstName(text.target.value);
+  };
+
+  const setUser = async () => {
+    try {
+      await axios.patch(
+        `https://api-pp.hifivework.com/apiv1/auth/${currentUser.id}`,
+        { firstname: employeeFirstname, lastname: employeeLastName },
+        {
+          headers: {
+            Authorization: `Bearer ${currentUser.authToken}`,
+            Accept: '*/*',
+          },
+        }
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div className="containerMainHome">
       <NavBar />
       <Container maxWidth="lg">
         <div className="containerListEmployees">
-          <div style={{ paddingBottom: 22, paddingTop: 22 }}>
+          <div
+            style={{
+              paddingBottom: 22,
+              paddingTop: 22,
+            }}
+          >
             <TitleH2 text="Liste des employés" />
             <NumberResults list={employeesList} />
           </div>
@@ -98,6 +120,19 @@ const Home = () => {
             onOpenDrawer={toggleDrawer(true)}
             closeDrawer={toggleDrawer(false)}
             listEmployees={employeesList}
+            onChangeLastName={onChangeLastName}
+            onChangeFirstName={onChangeFirstName}
+            setUser={() => {
+              setUser();
+              fetchEmployees(
+                companyId,
+                authToken,
+                setEmployeesList,
+                setEmployees,
+                setDataLoading
+              );
+              toggleDrawer(false);
+            }}
           />
         </div>
       </Container>
