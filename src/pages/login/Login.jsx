@@ -68,7 +68,6 @@ const Login = ({ history }) => {
         }
       );
       console.log('handlelogin', response.data);
-
       setIsAuthenticated(true);
       setCurrentUser(response.data);
       addItem('coderkaineToken', response.data.authToken);
