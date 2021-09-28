@@ -131,7 +131,6 @@ const Home = () => {
                 setEmployees,
                 setDataLoading
               );
-              toggleDrawer(false);
             }}
           />
         </div>
