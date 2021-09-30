@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import OutlinedInput from '@mui/material/OutlinedInput';
 import { EmployeesContext } from '../../context/Employees';
 import colors from '../../utils/style/colors';
 
@@ -53,9 +52,6 @@ export default function MultipleSelectNative({ employees }) {
           label="Employés"
           labelId="select-employees-label"
           id="select-employee"
-          /*inputProps={{
-            id: 'select-employees-label',
-          }}*/
         >
           <option value="">Selection</option>
           {employees.map((employee) => (
