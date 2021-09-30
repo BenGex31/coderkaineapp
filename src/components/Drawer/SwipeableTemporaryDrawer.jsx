@@ -6,8 +6,13 @@ import Stack from '@mui/material/Stack';
 import IconClose from '../icons/IconClose';
 import colors from '../../utils/style/colors';
 import TextFieldInput from '../TextField/TextField';
-import UpdateButton from '../Button/Button';
-import Auth from '../../context/Auth';
+import Button from '../Button/Button';
+/*import InputLabel from '@mui/material/InputLabel';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import axios from 'axios';
+import Auth from '../../context/Auth';*/
+import { EmployeesContext } from '../../context/Employees';
 
 const SwipeableTemporaryDrawer = ({
   anchor,
@@ -15,12 +20,22 @@ const SwipeableTemporaryDrawer = ({
   onCloseDrawer,
   onOpenDrawer,
   closeDrawer,
-  listEmployees,
-  onChangeLastName,
-  onChangeFirstName,
-  setUser,
+  //onChangeLastName,
+  //onChangeFirstName,
+  onClick,
 }) => {
-  const { currentUser } = useContext(Auth);
+  const { lastName, firstName, setLastName, setFirstName } =
+    useContext(EmployeesContext);
+
+  const onChangeLastName = (text) => {
+    setLastName(text.target.value);
+  };
+
+  const onChangeFirstName = (text) => {
+    setFirstName(text.target.value);
+  };
+
+  //const { currentUser } = useContext(Auth);
 
   return (
     <div>
@@ -59,28 +74,65 @@ const SwipeableTemporaryDrawer = ({
               </p>
             </Stack>
             <Stack spacing={3}>
+              {/*<FormControl sx={{ m: 1, minWidth: 120, maxWidth: 300 }}>
+                <InputLabel shrink htmlFor="select-multiple-native">
+                  Employés
+                </InputLabel>
+                <Select
+                  multiple
+                  native
+                  value={idEmployee}
+                  onChange={handleChangeMultiple}
+                  label="Employés"
+                  inputProps={{
+                    id: 'select-multiple-employees',
+                  }}
+                >
+                  {listEmployees.map((employee) => (
+                    <option
+                      key={employee.id}
+                      id={employee.id}
+                      value={employee.fullName}
+                    >
+                      {employee.fullName}
+                    </option>
+                  ))}
+                </Select>
+              </FormControl>
+              <Stack direction="row" justifyContent="flex-end">
+                <Button
+                  variant="contained"
+                  text="Valider"
+                  style={{
+                    backgroundColor: colors.darkBlue,
+                    color: 'white',
+                    width: 180,
+                    height: 38,
+                    fontSize: 14,
+                    fontWeight: 400,
+                    borderRadius: 5,
+                    fontFamily: 'Montserrat, sans-serif',
+                  }}
+                />
+              </Stack>*/}
               <TextFieldInput
                 onChange={onChangeLastName}
                 id="lastName"
                 label="Nom"
                 variant="outlined"
-                defaultValue={listEmployees
-                  .filter((employee) => employee.id === currentUser.id)
-                  .map((employee) => employee.lastName)}
+                defaultValue={lastName}
               />
               <TextFieldInput
                 onChange={onChangeFirstName}
                 id="firstName"
                 label="Prénom"
                 variant="outlined"
-                defaultValue={listEmployees
-                  .filter((employee) => employee.id === currentUser.id)
-                  .map((employee) => employee.firstName)}
+                defaultValue={firstName}
               />
             </Stack>
             <Stack direction="row" justifyContent="flex-end">
-              <UpdateButton
-                onClick={setUser}
+              <Button
+                onClick={onClick}
                 variant="contained"
                 text="Modifier"
                 style={{
