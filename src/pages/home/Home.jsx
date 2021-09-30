@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 import NavBar from '../../components/NavBar/NavBar';
 import './Home.css';
-import axios from 'axios';
 import TableEmployees from '../../components/TableEmployees/TableEmployees';
 import Container from '@mui/material/Container';
 import LinearProgress from '@mui/material/LinearProgress';
@@ -11,18 +10,24 @@ import NumberResults from '../../components/Results/NumberResults';
 import Auth from '../../context/Auth';
 import { getItem } from '../../utils/LocalStorage/LocalStorage';
 import { fetchEmployees } from '../../utils/API/FetchEmployees';
+import IconEdit from '../../components/icons/IconEdit';
+import MultipleSelect from '../../components/Select/MultipleSelect';
+import { EmployeesContext } from '../../context/Employees';
+import axios from 'axios';
 
 const Home = () => {
-  const { currentUser, setEmployees } = useContext(Auth);
   const [employeesList, setEmployeesList] = useState([]);
   const [isDataLoading, setDataLoading] = useState(true);
   const [isOpenDrawer, setIsOpenDrawer] = useState(false);
-  const [employeeLastName, setEmployeeLastName] = useState(
+  /*const [employeeLastName, setEmployeeLastName] = useState(
     currentUser?.lastname || ''
   );
   const [employeeFirstname, setEmployeeFirstName] = useState(
     currentUser?.firstname || ''
-  );
+  );*/
+
+  const { currentUser } = useContext(Auth);
+  const { idEmployee, lastName, firstName } = useContext(EmployeesContext);
 
   let companyId;
   //console.log('getItem ', getItem('companyId'));
@@ -30,23 +35,15 @@ const Home = () => {
   if (currentUser) {
     if (currentUser.company) {
       companyId = currentUser.company.id;
-      //console.log('companyId1', companyId);
     } else {
       companyId = getItem('companyId');
-      //console.log('companyId2', companyId);
     }
     authToken = currentUser.authToken;
   }
 
   useEffect(() => {
-    fetchEmployees(
-      companyId,
-      authToken,
-      setEmployeesList,
-      setEmployees,
-      setDataLoading
-    );
-  }, [setEmployeesList, setEmployees, authToken, companyId]);
+    fetchEmployees(companyId, authToken, setEmployeesList, setDataLoading);
+  }, [authToken, companyId, setEmployeesList]);
 
   const toggleDrawer = (open) => (event) => {
     if (
@@ -56,7 +53,6 @@ const Home = () => {
     ) {
       return;
     }
-    //console.log('event', event);
     setIsOpenDrawer(open);
   };
 
@@ -73,19 +69,11 @@ const Home = () => {
     }
   };
 
-  const onChangeLastName = (text) => {
-    setEmployeeLastName(text.target.value);
-  };
-
-  const onChangeFirstName = (text) => {
-    setEmployeeFirstName(text.target.value);
-  };
-
   const setUser = async () => {
     try {
       await axios.patch(
-        `https://api-pp.hifivework.com/apiv1/auth/${currentUser.id}`,
-        { firstname: employeeFirstname, lastname: employeeLastName },
+        `https://api-pp.hifivework.com/apiv1/auth/${idEmployee}`,
+        { firstname: firstName, lastname: lastName },
         {
           headers: {
             Authorization: `Bearer ${currentUser.authToken}`,
@@ -105,13 +93,30 @@ const Home = () => {
         <div className="containerListEmployees">
           <div
             style={{
-              paddingBottom: 22,
-              paddingTop: 22,
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              height: 180,
             }}
           >
-            <TitleH2 text="Liste des employés" />
-            <NumberResults list={employeesList} />
+            <div
+              style={{
+                paddingBottom: 22,
+                paddingTop: 22,
+              }}
+            >
+              <TitleH2 text="Liste des employés" />
+              <NumberResults list={employeesList} />
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'row-reverse' }}>
+              <IconEdit
+                text="modifier un employé"
+                onClick={toggleDrawer(true)}
+              />
+              <MultipleSelect employees={employeesList} />
+            </div>
           </div>
+
           <div>{displayList()}</div>
           <SwipeableTemporaryDrawer
             anchor="right"
@@ -119,16 +124,12 @@ const Home = () => {
             onCloseDrawer={toggleDrawer(false)}
             onOpenDrawer={toggleDrawer(true)}
             closeDrawer={toggleDrawer(false)}
-            listEmployees={employeesList}
-            onChangeLastName={onChangeLastName}
-            onChangeFirstName={onChangeFirstName}
-            setUser={() => {
+            onClick={() => {
               setUser();
               fetchEmployees(
                 companyId,
                 authToken,
                 setEmployeesList,
-                setEmployees,
                 setDataLoading
               );
             }}
