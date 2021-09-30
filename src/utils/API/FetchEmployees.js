@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const fetchEmployees = async (companyId, authToken, setEmployeesList, setEmployees, setDataLoading) => {
+export const fetchEmployees = async (companyId, authToken, setEmployeesList, setDataLoading) => {
   try {
     const response = await axios.get(
       `https://api-pp.hifivework.com/apiv1/company/${companyId}/employees`,
@@ -12,7 +12,7 @@ export const fetchEmployees = async (companyId, authToken, setEmployeesList, set
       }
     );
     setEmployeesList(response.data);
-    setEmployees(response.data);
+    //setEmployees(response.data);
     setDataLoading(false);
   } catch (error) {
     console.error(error);
