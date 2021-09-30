@@ -84,6 +84,7 @@ const Home = () => {
     } catch (error) {
       console.error(error);
     }
+    fetchEmployees(companyId, authToken, setEmployeesList, setDataLoading);
   };
 
   return (
@@ -124,15 +125,7 @@ const Home = () => {
             onCloseDrawer={toggleDrawer(false)}
             onOpenDrawer={toggleDrawer(true)}
             closeDrawer={toggleDrawer(false)}
-            onClick={() => {
-              setUser();
-              fetchEmployees(
-                companyId,
-                authToken,
-                setEmployeesList,
-                setDataLoading
-              );
-            }}
+            onClick={setUser}
           />
         </div>
       </Container>
