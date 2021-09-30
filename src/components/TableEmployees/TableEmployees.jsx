@@ -7,7 +7,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import colors from '../../utils/style/colors';
-import IconEdit from '../icons/IconEdit';
+//import IconEdit from '../icons/IconEdit';
 import Auth from '../../context/Auth';
 
 const stylesTableCellHead = {
@@ -42,16 +42,16 @@ const TableEmployees = ({ employees, openDrawer }) => {
       <Table size="medium" aria-label="employees list">
         <TableHead>
           <TableRow>
-            <TableCell sx={stylesTableCellHead} align="left">
+            <TableCell sx={stylesTableCellHead} align="center">
               Nom
             </TableCell>
-            <TableCell sx={stylesTableCellHead} align="left">
+            <TableCell sx={stylesTableCellHead} align="center">
               Prénom
             </TableCell>
-            <TableCell sx={stylesTableCellHead} align="left">
+            <TableCell sx={stylesTableCellHead} align="center">
               Email
             </TableCell>
-            <TableCell sx={stylesTableCellHead}></TableCell>
+            {/*<TableCell sx={stylesTableCellHead}></TableCell>*/}
           </TableRow>
         </TableHead>
         <TableBody>
@@ -70,7 +70,7 @@ const TableEmployees = ({ employees, openDrawer }) => {
                     ? stylesTableCellBodyUser
                     : stylesTableCellBody
                 }
-                align="left"
+                align="center"
                 component="th"
                 scope="row"
               >
@@ -82,7 +82,7 @@ const TableEmployees = ({ employees, openDrawer }) => {
                     ? stylesTableCellBodyUser
                     : stylesTableCellBody
                 }
-                align="left"
+                align="center"
               >
                 {employee.firstName}
               </TableCell>
@@ -92,13 +92,13 @@ const TableEmployees = ({ employees, openDrawer }) => {
                     ? stylesTableCellBodyUser
                     : stylesTableCellBody
                 }
-                align="left"
+                align="center"
               >
                 {employee.mail}
               </TableCell>
-              <TableCell>
+              {/*<TableCell>
                 <IconEdit onClick={openDrawer} />
-              </TableCell>
+              </TableCell>*/}
             </TableRow>
           ))}
         </TableBody>
