@@ -5,8 +5,7 @@ import './NavBar.css';
 import Auth from '../../context/Auth';
 
 const NavBar = () => {
-  const { setIsAuthenticated, setCurrentUser, currentUser, employees } =
-    useContext(Auth);
+  const { setIsAuthenticated, setCurrentUser, currentUser } = useContext(Auth);
 
   const handleLogOut = () => {
     logout();
@@ -26,11 +25,10 @@ const NavBar = () => {
       </div>
       <div className="containerNavBarRight">
         <span>
-          Bonjour{' '}
-          {employees
+          Bonjour {currentUser?.firstname}
+          {/*employees
             .filter((employee) => employee.id === currentUser?.id)
-            .map((employee) => employee.firstName) || ''}{' '}
-          !{' '}
+          .map((employee) => employee.firstName) || ''*/}
         </span>
         <span onClick={handleLogOut}>Se déconnecter</span>
       </div>
