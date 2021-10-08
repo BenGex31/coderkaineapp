@@ -15,12 +15,18 @@ const TextFieldPassword = ({
   onClick,
   onMouseDown,
   visibility,
+  label,
 }) => {
   return (
     <FormControl variant="outlined">
-      <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+      <InputLabel
+        style={{ fontFamily: 'Montserrat, sans-serif' }}
+        htmlFor="outlined-adornment-password"
+      >
+        Mot de passe
+      </InputLabel>
       <OutlinedInput
-        fullWidth
+        label={label}
         id={id}
         type={type}
         value={value}
@@ -37,7 +43,6 @@ const TextFieldPassword = ({
             </IconButton>
           </InputAdornment>
         }
-        labelWidth={70}
       />
     </FormControl>
   );

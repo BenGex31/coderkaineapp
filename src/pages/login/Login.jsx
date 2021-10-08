@@ -27,10 +27,10 @@ const Login = ({ history }) => {
     const emailValue = event.target.value;
     if (emailRegex.test(emailValue)) {
       setIsvalidEmail(true);
-      setMessage('Votre adresse mail est correct!');
+      setMessage('Votre adresse mail est correcte !');
     } else {
       setIsvalidEmail(false);
-      setMessage('Entrez une adresse mail valide!');
+      setMessage('Entrez une adresse mail valide !');
     }
     setEmail(event.target.value);
   };
@@ -88,7 +88,16 @@ const Login = ({ history }) => {
           alt="logo CoderKaine"
         />
         <div className="loginText">
-          <h1 style={{ fontFamily: 'Montserrat, sans-serif' }}>Connexion</h1>
+          <h1
+            style={{
+              fontFamily: 'Montserrat, sans-serif',
+              color: colors.darkBlue,
+              fontSize: 16,
+              fontWeight: 700,
+            }}
+          >
+            Connexion
+          </h1>
           <p
             style={{
               color: colors.lightBlue,
@@ -107,12 +116,17 @@ const Login = ({ history }) => {
             variant="outlined"
           />
           {isValidEmail ? (
-            <span style={{ color: 'green', fontSize: 12 }}>{message}</span>
+            <span style={{ color: 'green', fontSize: 12, paddingBottom: 12 }}>
+              {message}
+            </span>
           ) : (
-            <span style={{ color: 'red', fontSize: 12 }}>{message}</span>
+            <span style={{ color: 'red', fontSize: 12, paddingBottom: 12 }}>
+              {message}
+            </span>
           )}
           <TextFieldPassword
             id="password"
+            label="Mot de passe"
             type={passwordVisibility ? 'text' : 'password'}
             value={password}
             onChange={handleChangePassword('password')}

@@ -5,12 +5,12 @@
 .loginContainerLeft {
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: flex-start;
   align-items: center;
   width: 460px;
   height: 955px;
-  padding-left: 100px;
-  padding-right: 100px;
+  padding: 60px;
+  gap: 30px;
   background-color: #ffffff;
 }
 
@@ -45,7 +45,7 @@ p {
   justify-content: space-evenly;
   align-content: center;
   height: 180px;
-  width: 400px;
+  width: 280px;
 }
 
 .loginButton {
