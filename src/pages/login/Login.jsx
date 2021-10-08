@@ -162,6 +162,7 @@ const Login = ({ history }) => {
                     fontWeight: 400,
                     borderRadius: 5,
                     fontFamily: 'Montserrat, sans-serif',
+                    textTransform: 'none',
                   }
                 : {
                     backgroundColor: colors.lightBlue,
@@ -172,6 +173,7 @@ const Login = ({ history }) => {
                     fontWeight: 400,
                     borderRadius: 5,
                     fontFamily: 'Montserrat, sans-serif',
+                    textTransform: 'none',
                   }
             }
           />
