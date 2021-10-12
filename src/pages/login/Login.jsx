@@ -9,6 +9,9 @@ import colors from '../../utils/style/colors';
 import Auth from '../../context/Auth';
 import axios from 'axios';
 import { addItem } from '../../utils/LocalStorage/LocalStorage';
+import CssBaseline from '@mui/material/CssBaseline';
+import Container from '@mui/material/Container';
+import Stack from '@mui/material/Stack';
 
 const Login = ({ history }) => {
   const { setCurrentUser, setIsAuthenticated } = useContext(Auth);
@@ -80,130 +83,137 @@ const Login = ({ history }) => {
   };
 
   return (
-    <div className="loginMainContainer">
-      <div className="loginContainerLeft">
-        <img
-          style={{ width: 73.39, height: 73.39 }}
-          src={logoCoderKaine}
-          alt="logo CoderKaine"
-        />
-        <div className="loginText">
-          <h1
-            style={{
-              fontFamily: 'Montserrat, sans-serif',
-              color: colors.darkBlue,
-              fontSize: 16,
-              fontWeight: 700,
-            }}
+    <>
+      <CssBaseline />
+      <Container maxWidth="lg">
+        <Stack direction="row" sx={{ height: '100vh' }}>
+          <Stack>
+            <img
+              style={{ width: 73.39, height: 73.39 }}
+              src={logoCoderKaine}
+              alt="logo CoderKaine"
+            />
+            <div className="loginText">
+              <h1
+                style={{
+                  fontFamily: 'Montserrat, sans-serif',
+                  color: colors.darkBlue,
+                  fontSize: 16,
+                  fontWeight: 700,
+                }}
+              >
+                Connexion
+              </h1>
+              <p
+                style={{
+                  color: colors.lightBlue,
+                  fontFamily: 'Montserrat, sans-serif',
+                }}
+              >
+                Veuillez vous connecter afin d’accéder à la plateforme et gérer
+                la liste de vos employés.
+              </p>
+            </div>
+            <div className="loginForm">
+              <TextFieldEmail
+                onChange={handleChangeEmail}
+                id="email"
+                label="E-mail"
+                variant="outlined"
+              />
+              {isValidEmail ? (
+                <span
+                  style={{ color: 'green', fontSize: 12, paddingBottom: 12 }}
+                >
+                  {message}
+                </span>
+              ) : (
+                <span style={{ color: 'red', fontSize: 12, paddingBottom: 12 }}>
+                  {message}
+                </span>
+              )}
+              <TextFieldPassword
+                id="password"
+                label="Mot de passe"
+                type={passwordVisibility ? 'text' : 'password'}
+                value={password}
+                onChange={handleChangePassword('password')}
+                onClick={handleClickShowPassword}
+                onMouseDown={handleMouseDownPassword}
+                visibility={passwordVisibility}
+              />
+              {isValidPassword ? (
+                <span style={{ color: 'green', fontSize: 12 }}>
+                  {' '}
+                  {errorMessagePassword}
+                </span>
+              ) : (
+                <span style={{ color: 'red', fontSize: 12 }}>
+                  {' '}
+                  {errorMessagePassword}
+                </span>
+              )}
+            </div>
+            {loginError ? (
+              <span
+                style={{
+                  fontFamily: 'Montserrat, sans-serif',
+                  fontSize: 13,
+                  color: 'red',
+                }}
+              >
+                Votre email et/ou mot de passe est erroné !
+              </span>
+            ) : (
+              ''
+            )}
+            <div className="loginButton">
+              <LoginButton
+                onClick={handleLogin}
+                disabled={isValidEmail && isValidPassword ? false : true}
+                variant="contained"
+                text="Se connecter"
+                style={
+                  isValidEmail && isValidPassword
+                    ? {
+                        backgroundColor: colors.darkBlue,
+                        color: 'white',
+                        width: 180,
+                        height: 38,
+                        fontSize: 14,
+                        fontWeight: 400,
+                        borderRadius: 5,
+                        fontFamily: 'Montserrat, sans-serif',
+                        textTransform: 'none',
+                      }
+                    : {
+                        backgroundColor: colors.lightBlue,
+                        color: 'white',
+                        width: 180,
+                        height: 38,
+                        fontSize: 14,
+                        fontWeight: 400,
+                        borderRadius: 5,
+                        fontFamily: 'Montserrat, sans-serif',
+                        textTransform: 'none',
+                      }
+                }
+              />
+            </div>
+          </Stack>
+          <div
+            style={{ backgroundColor: colors.lighterBlue }}
+            className="loginContainerRight"
           >
-            Connexion
-          </h1>
-          <p
-            style={{
-              color: colors.lightBlue,
-              fontFamily: 'Montserrat, sans-serif',
-            }}
-          >
-            Veuillez vous connecter afin d’accéder à la plateforme et gérer la
-            liste de vos employés.
-          </p>
-        </div>
-        <div className="loginForm">
-          <TextFieldEmail
-            onChange={handleChangeEmail}
-            id="email"
-            label="E-mail"
-            variant="outlined"
-          />
-          {isValidEmail ? (
-            <span style={{ color: 'green', fontSize: 12, paddingBottom: 12 }}>
-              {message}
-            </span>
-          ) : (
-            <span style={{ color: 'red', fontSize: 12, paddingBottom: 12 }}>
-              {message}
-            </span>
-          )}
-          <TextFieldPassword
-            id="password"
-            label="Mot de passe"
-            type={passwordVisibility ? 'text' : 'password'}
-            value={password}
-            onChange={handleChangePassword('password')}
-            onClick={handleClickShowPassword}
-            onMouseDown={handleMouseDownPassword}
-            visibility={passwordVisibility}
-          />
-          {isValidPassword ? (
-            <span style={{ color: 'green', fontSize: 12 }}>
-              {' '}
-              {errorMessagePassword}
-            </span>
-          ) : (
-            <span style={{ color: 'red', fontSize: 12 }}>
-              {' '}
-              {errorMessagePassword}
-            </span>
-          )}
-        </div>
-        {loginError ? (
-          <span
-            style={{
-              fontFamily: 'Montserrat, sans-serif',
-              fontSize: 13,
-              color: 'red',
-            }}
-          >
-            Votre email et/ou mot de passe est erroné !
-          </span>
-        ) : (
-          ''
-        )}
-        <div className="loginButton">
-          <LoginButton
-            onClick={handleLogin}
-            disabled={isValidEmail && isValidPassword ? false : true}
-            variant="contained"
-            text="Se connecter"
-            style={
-              isValidEmail && isValidPassword
-                ? {
-                    backgroundColor: colors.darkBlue,
-                    color: 'white',
-                    width: 180,
-                    height: 38,
-                    fontSize: 14,
-                    fontWeight: 400,
-                    borderRadius: 5,
-                    fontFamily: 'Montserrat, sans-serif',
-                    textTransform: 'none',
-                  }
-                : {
-                    backgroundColor: colors.lightBlue,
-                    color: 'white',
-                    width: 180,
-                    height: 38,
-                    fontSize: 14,
-                    fontWeight: 400,
-                    borderRadius: 5,
-                    fontFamily: 'Montserrat, sans-serif',
-                    textTransform: 'none',
-                  }
-            }
-          />
-        </div>
-      </div>
-      <div
-        style={{ backgroundColor: colors.lighterBlue }}
-        className="loginContainerRight"
-      >
-        <img
-          className="LoginIllustration"
-          src={illustrationCoderKaine}
-          alt="illustration CoderKaine"
-        />
-      </div>
-    </div>
+            <img
+              className="LoginIllustration"
+              src={illustrationCoderKaine}
+              alt="illustration CoderKaine"
+            />
+          </div>
+        </Stack>
+      </Container>
+    </>
   );
 };
 
