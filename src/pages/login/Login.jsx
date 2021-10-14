@@ -10,17 +10,18 @@ import Auth from '../../context/Auth';
 import axios from 'axios';
 import { addItem } from '../../utils/LocalStorage/LocalStorage';
 import CssBaseline from '@mui/material/CssBaseline';
-import Container from '@mui/material/Container';
+//import Container from '@mui/material/Container';
 import Stack from '@mui/material/Stack';
+import Grid from '@mui/material/Grid';
 
 const Login = ({ history }) => {
   const { setCurrentUser, setIsAuthenticated } = useContext(Auth);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordVisibility, setPasswordVisibility] = useState(false);
-  const [isValidEmail, setIsvalidEmail] = useState(false);
+  const [isValidEmail, setIsvalidEmail] = useState();
   const [message, setMessage] = useState('');
-  const [isValidPassword, setIsValidPassword] = useState(false);
+  const [isValidPassword, setIsValidPassword] = useState();
   const [errorMessagePassword, setErrorMessagePassword] = useState('');
   const [loginError, setLoginError] = useState(false);
 
@@ -85,21 +86,33 @@ const Login = ({ history }) => {
   return (
     <>
       <CssBaseline />
-      <Container maxWidth="lg">
-        <Stack direction="row" sx={{ height: '100vh' }}>
-          <Stack>
-            <img
-              style={{ width: 73.39, height: 73.39 }}
-              src={logoCoderKaine}
-              alt="logo CoderKaine"
-            />
-            <div className="loginText">
+      <Grid>
+        <Stack
+          spacing={8.4}
+          direction={{ xs: 'column', md: 'row' }}
+          height="100%"
+        >
+          <Stack
+            alignItems="center"
+            width={{ lg: 460 }}
+            ml={{ md: 8.5 }}
+            mt={7.4}
+          >
+            <Stack mb={8.16375} alignItems="center">
+              <img
+                style={{ width: 73.39, height: 73.39 }}
+                src={logoCoderKaine}
+                alt="logo CoderKaine"
+              />
+            </Stack>
+            <Stack width={350} mb={4.625} spacing={1}>
               <h1
                 style={{
                   fontFamily: 'Montserrat, sans-serif',
                   color: colors.darkBlue,
                   fontSize: 16,
                   fontWeight: 700,
+                  margin: 0,
                 }}
               >
                 Connexion
@@ -108,66 +121,53 @@ const Login = ({ history }) => {
                 style={{
                   color: colors.lightBlue,
                   fontFamily: 'Montserrat, sans-serif',
+                  height: 32,
+                  fontSize: 13,
+                  fontWeight: 500,
+                  marginTop: 9,
                 }}
               >
                 Veuillez vous connecter afin d’accéder à la plateforme et gérer
                 la liste de vos employés.
               </p>
-            </div>
-            <div className="loginForm">
-              <TextFieldEmail
-                onChange={handleChangeEmail}
-                id="email"
-                label="E-mail"
-                variant="outlined"
-              />
-              {isValidEmail ? (
-                <span
-                  style={{ color: 'green', fontSize: 12, paddingBottom: 12 }}
-                >
-                  {message}
-                </span>
-              ) : (
-                <span style={{ color: 'red', fontSize: 12, paddingBottom: 12 }}>
-                  {message}
-                </span>
-              )}
-              <TextFieldPassword
-                id="password"
-                label="Mot de passe"
-                type={passwordVisibility ? 'text' : 'password'}
-                value={password}
-                onChange={handleChangePassword('password')}
-                onClick={handleClickShowPassword}
-                onMouseDown={handleMouseDownPassword}
-                visibility={passwordVisibility}
-              />
-              {isValidPassword ? (
-                <span style={{ color: 'green', fontSize: 12 }}>
-                  {' '}
-                  {errorMessagePassword}
-                </span>
-              ) : (
-                <span style={{ color: 'red', fontSize: 12 }}>
-                  {' '}
-                  {errorMessagePassword}
-                </span>
-              )}
-            </div>
-            {loginError ? (
-              <span
-                style={{
-                  fontFamily: 'Montserrat, sans-serif',
-                  fontSize: 13,
-                  color: 'red',
-                }}
-              >
-                Votre email et/ou mot de passe est erroné !
-              </span>
-            ) : (
-              ''
-            )}
-            <div className="loginButton">
+            </Stack>
+            <Stack width={{ xs: 350 }} spacing={3}>
+              <Stack>
+                <TextFieldEmail
+                  error={isValidEmail === false ? true : false}
+                  helperText={isValidEmail ? message : message}
+                  sxHelperText={{ color: isValidEmail ? 'green' : 'red' }}
+                  onChange={handleChangeEmail}
+                  id="email"
+                  label="E-mail"
+                  variant="outlined"
+                  sx={{
+                    fontFamily: 'Montserrat, sans-serif',
+                    color: '#1C205F',
+                  }}
+                />
+              </Stack>
+              <Stack>
+                <TextFieldPassword
+                  id="password"
+                  label="Mot de passe"
+                  type={passwordVisibility ? 'text' : 'password'}
+                  value={password}
+                  onChange={handleChangePassword('password')}
+                  onClick={handleClickShowPassword}
+                  onMouseDown={handleMouseDownPassword}
+                  visibility={passwordVisibility}
+                  helperText={
+                    isValidPassword
+                      ? errorMessagePassword
+                      : errorMessagePassword
+                  }
+                  errorHelperText={isValidPassword ? false : true}
+                  sxHelperText={{ color: isValidPassword ? 'green' : 'red' }}
+                />
+              </Stack>
+            </Stack>
+            <Stack width={325} spacing={2} alignItems="flex-end" mt={6.125}>
               <LoginButton
                 onClick={handleLogin}
                 disabled={isValidEmail && isValidPassword ? false : true}
@@ -199,20 +199,41 @@ const Login = ({ history }) => {
                       }
                 }
               />
-            </div>
+              {loginError ? (
+                <span
+                  style={{
+                    fontFamily: 'Montserrat, sans-serif',
+                    fontSize: 13,
+                    color: 'red',
+                  }}
+                >
+                  Votre email et/ou mot de passe est erroné !
+                </span>
+              ) : (
+                ''
+              )}
+            </Stack>
           </Stack>
-          <div
-            style={{ backgroundColor: colors.lighterBlue }}
-            className="loginContainerRight"
+
+          <Stack
+            sx={{
+              backgroundColor: colors.lighterBlue,
+            }}
+            width="100%"
+            height={{ sm: '100vh', xs: 271 }}
+            justifyContent="center"
+            alignItems="center"
           >
-            <img
-              className="LoginIllustration"
-              src={illustrationCoderKaine}
-              alt="illustration CoderKaine"
-            />
-          </div>
+            <Stack
+              width={515.38}
+              height={388.75}
+              sx={{ display: { xs: 'none', sm: 'contents' } }}
+            >
+              <img src={illustrationCoderKaine} alt="illustration CoderKaine" />
+            </Stack>
+          </Stack>
         </Stack>
-      </Container>
+      </Grid>
     </>
   );
 };

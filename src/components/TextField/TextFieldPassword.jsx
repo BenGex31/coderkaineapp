@@ -6,6 +6,7 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import FormControl from '@material-ui/core/FormControl';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import FormHelperText from '@mui/material/FormHelperText';
 
 const TextFieldPassword = ({
   id,
@@ -16,6 +17,10 @@ const TextFieldPassword = ({
   onMouseDown,
   visibility,
   label,
+  error,
+  helperText,
+  errorHelperText,
+  sxHelperText,
 }) => {
   return (
     <FormControl variant="outlined">
@@ -31,6 +36,7 @@ const TextFieldPassword = ({
         type={type}
         value={value}
         onChange={onChange}
+        error={error}
         endAdornment={
           <InputAdornment position="end">
             <IconButton
@@ -44,6 +50,9 @@ const TextFieldPassword = ({
           </InputAdornment>
         }
       />
+      <FormHelperText sx={sxHelperText} error={errorHelperText}>
+        {helperText}
+      </FormHelperText>
     </FormControl>
   );
 };
