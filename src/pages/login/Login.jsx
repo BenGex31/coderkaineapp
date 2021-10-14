@@ -4,13 +4,11 @@ import LoginButton from '../../components/Button/Button';
 import illustrationCoderKaine from '../../assets/loginImg/illustration-coderkaine.svg';
 import TextFieldEmail from '../../components/TextField/TextField';
 import TextFieldPassword from '../../components/TextField/TextFieldPassword';
-import './Login.css';
 import colors from '../../utils/style/colors';
 import Auth from '../../context/Auth';
 import axios from 'axios';
 import { addItem } from '../../utils/LocalStorage/LocalStorage';
 import CssBaseline from '@mui/material/CssBaseline';
-//import Container from '@mui/material/Container';
 import Stack from '@mui/material/Stack';
 import Grid from '@mui/material/Grid';
 
